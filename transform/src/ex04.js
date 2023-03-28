@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import dat from "dat.gui";
 
-// ----- 주제: 그룹만들기
+// ----- 주제: 그룹만들기(행성 자전 구현)
 
 export default function example() {
   // Renderer
