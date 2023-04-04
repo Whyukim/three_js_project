@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 
-// ----- 주제: OrbitControls
+// ----- 주제: TrackballControls - 수직방향으로도 컨트롤 가능
+
 
 export default function example() {
   // Renderer

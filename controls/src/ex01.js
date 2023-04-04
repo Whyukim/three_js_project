@@ -46,8 +46,8 @@ export default function example() {
   controls.maxPolarAngle = THREE.MathUtils.degToRad(135); // 카메라 최대 각도
   controls.minPolarAngle = THREE.MathUtils.degToRad(45); // 카메라 최소 각도
   //   controls.target.set(2, 2, 2); // 중심
-  controls.autoRotate = true;
-  controls.rotateSpeed = 5;
+  controls.autoRotate = true; // 자동 회전
+  controls.rotateSpeed = 5; // 회전속도
 
   // Mesh
   const geometry = new THREE.BoxGeometry(1, 1, 1);
