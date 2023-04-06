@@ -1,40 +1,14 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-// ----- 주제: MeshStandardMaterial에 효과 더하기
+// ----- 주제: skybox(주변 배경)
 
 export default function example() {
   // 텍스쳐 이미지 로드
-  const loadingManager = new THREE.LoadingManager();
-  loadingManager.onStart = () => {
-    console.log("로드 시작");
-  };
-  loadingManager.onProgress = (img) => {
-    console.log(img + " 로드");
-  };
-  loadingManager.onLoad = () => {
-    console.log("로드 완료");
-  };
-  loadingManager.onError = () => {
-    console.log("에러");
-  };
-
-  const textureLoader = new THREE.TextureLoader();
-  const baseColorTex = textureLoader.load(
-    "/textures/brick/Brick_Wall_019_basecolor.jpg"
-  );
-  const ambientTex = textureLoader.load(
-    "/textures/brick/Brick_Wall_019_ambientOcclusion.jpg"
-  );
-  const normalTex = textureLoader.load(
-    "/textures/brick/Brick_Wall_019_normal.jpg"
-  );
-  const roughnessTex = textureLoader.load(
-    "/textures/brick/Brick_Wall_019_roughness.jpg"
-  );
-  const heightTex = textureLoader.load(
-    "/textures/brick/Brick_Wall_019_height.png"
-  );
+  const cubeTextureLoader = new THREE.CubeTextureLoader();
+  const cubeTexture = cubeTextureLoader
+    .setPath("/textures/cubemap/")
+    .load(["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
 
   // Renderer
   const canvas = document.querySelector("#three-canvas");
@@ -47,7 +21,7 @@ export default function example() {
 
   // Scene
   const scene = new THREE.Scene();
-  // scene.background = new THREE.Color('white');
+  scene.background = cubeTexture;
 
   // Camera
   const camera = new THREE.PerspectiveCamera(
@@ -72,14 +46,9 @@ export default function example() {
   // Mesh
   const geometry = new THREE.BoxGeometry(3, 3, 3);
   // const material = new THREE.MeshBasicMaterial({
-  const material = new THREE.MeshStandardMaterial({
-    map: baseColorTex,
-    roughness: 0.3,
-    metalness: 0.3,
-    normalMap: normalTex,
-    roughnessMap: roughnessTex,
-    aoMap: ambientTex,
-    aoMapIntensity: 5,
+  const material = new THREE.MeshBasicMaterial({
+    // envMap: envTex,
+    envMap: cubeTexture,
     side: THREE.DoubleSide,
   });
   const mesh = new THREE.Mesh(geometry, material);
